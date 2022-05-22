@@ -5,9 +5,9 @@
 # Dependencies: mailutils
 
 # 0. Change the variables below to suit your environment
-ZBX_FOLDER="/usr/share/zabbix"  # Folder where your Zabbix root installation is
-BACKUP_FOLDER="/home/omidx/back"   # Folder where you want to store the backups
-EMAIL="user@domain.com"      # Email ID where you want to receive a confirmation email
+ZBX_FOLDER="/usr/share/zabbix"          # Folder where your Zabbix root installation is
+BACKUP_FOLDER="/home/username/backup"   # Folder where you want to store the backups
+EMAIL="user@domain.com"                 # Email ID where you want to receive a confirmation email
 DATE=$(date +%Y-%m-%d)
 LOG="${BACKUP_FOLDER}/logs/ZBX-backup.log"
 
@@ -27,13 +27,13 @@ if ! test -f ${ZBX_CONFIG}; then
 	exit 1
 fi
  
-# 2. Get the Zabbix database  information
+# 2. Get the Zabbix database information
 DB_NAME=$(grep -E "^define\('DBName'" ${ZBX_CONFIG} | cut -d"'" -f4)
 DB_USER=$(grep -E "^define\('DBUser'" ${ZBX_CONFIG} | cut -d"'" -f4)
 DB_PASSWORD=$(grep -E "^define\('DBPassword'" ${ZBX_CONFIG} | cut -d"'" -f4)
 DB_HOST=$(grep -E "^define\('DBHost'" ${ZBX_CONFIG} | cut -d"'" -f4)
  
-# 3. Compress and backup the  Zabbix DB and the complete website files
+# 3. Compress and backup the Zabbix DB and the complete website files
 mysqldump -u${DB_USER} -p${DB_PASSWORD} --databases ${DB_NAME} | gzip > ${BACKUP_FOLDER}/ZBX_db-${DATE}.gz;
  
 if [ $? -ne 0 ]; then
@@ -58,4 +58,4 @@ echo "$(du -h ${BACKUP_FOLDER})" >> ${LOG}
 echo "" >> ${LOG}
 
 # email log
-cat ${LOG} # | mail -s "Zabbix website Backup Successful" ${EMAIL}
+cat ${LOG} | mail -s "Zabbix website Backup Successful" ${EMAIL}
