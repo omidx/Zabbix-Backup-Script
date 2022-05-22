@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# zbx-backup.sh - Creates a complete, compressed backup of your Zabbix database and files.
+# zabbix-backup.sh - Creates a complete, compressed backup of your Zabbix database and files.
 
 # Author: Omid Samir | Twitter: @omidsx | GitHub: https://github.com/omidx | Website: https://www.omidx.com
 # Dependencies: mailutils
