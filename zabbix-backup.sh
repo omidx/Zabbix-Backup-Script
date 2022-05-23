@@ -48,7 +48,7 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-echo "Website Backup Completed Successfully" >> ${LOG}
+echo "Backup Completed Successfully" >> ${LOG}
 echo "" >> ${LOG}
 echo "Zabbix site file list with size (depth=2): \n" >> ${LOG}
 echo "$(du -h --max-depth 2 ${ZBX_FOLDER})" >> ${LOG}
